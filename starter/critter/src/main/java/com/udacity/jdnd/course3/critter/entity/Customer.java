@@ -14,14 +14,16 @@ public class Customer {
 
     @Nationalized
     private String name;
+
     @Column(name="phone_number", length=10)
     private String phoneNumber;
+
     private String notes;
 
     // use "mappedBy" on the containing Entity side, usually for @OneToMany
     // use "CascadeType.ALL" to delete any associated Pet when removed:
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
-    private List<Long> petIds;
+    private List<Pet> pets;
 
     public Customer() {}
 
@@ -63,11 +65,11 @@ public class Customer {
         this.notes = notes;
     }
 
-    public List<Long> getPetIds() {
-        return this.petIds;
+    public List<Pet> getPetIds() {
+        return this.pets;
     }
 
-    public void setPetIds(List<Long> petIds) {
-        this.petIds = petIds;
+    public void setPetIds(List<Pet> pets) {
+        this.pets = pets;
     }
 }

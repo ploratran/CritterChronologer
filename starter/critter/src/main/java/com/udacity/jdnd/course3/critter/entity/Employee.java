@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.entity;
 
 import com.udacity.jdnd.course3.critter.types.EmployeeSkill;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,8 +17,10 @@ public class Employee {
 
     private String name;
 
+    @ElementCollection
     private Set<EmployeeSkill> skills;
 
+    @ElementCollection
     private Set<DayOfWeek> daysAvailable;
 
     public Employee() {}

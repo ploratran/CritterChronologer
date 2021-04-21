@@ -16,16 +16,20 @@ public class Pet {
 
     @Nationalized // similar to UTF-8
     private String name;
-    private Long ownerId;
+
     private LocalDate birthDate;
+
     private String notes;
+
+    @ManyToOne(fetch=FetchType.LAZY) // many pets can belong to 1 owner
+    @JoinColumn(name="customer_id") // map the joined column
+    private Customer customer;
 
     public Pet () {}
 
-    public Pet(PetType type, String name, Long ownerId, LocalDate birthDate, String notes) {
+    public Pet(PetType type, String name, LocalDate birthDate, String notes) {
         this.type = type;
         this.name = name;
-        this.ownerId = ownerId;
         this.birthDate = birthDate;
         this.notes = notes;
     }
@@ -52,14 +56,6 @@ public class Pet {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
     }
 
     public LocalDate getBirthDate() {
