@@ -1,6 +1,5 @@
 package com.udacity.jdnd.course3.critter.entity;
 
-import com.udacity.jdnd.course3.critter.types.PetType;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
@@ -21,6 +20,7 @@ public class Pet {
 
     private String notes;
 
+    // Pet and Customer has M:1 relationship:
     @ManyToOne(fetch=FetchType.LAZY) // many pets can belong to 1 owner
     @JoinColumn(name="customer_id") // map the joined column
     private Customer customer;

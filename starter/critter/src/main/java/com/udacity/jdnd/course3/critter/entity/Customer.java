@@ -6,47 +6,22 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Customer {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Nationalized
-    private String name;
+public class Customer extends User{
 
     @Column(name="phone_number", length=10)
     private String phoneNumber;
 
     private String notes;
 
-    // use "mappedBy" on the containing Entity side, usually for @OneToMany
-    // use "CascadeType.ALL" to delete any associated Pet when removed:
+    // Use 1:M between Customer and Pets:
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Pet> pets;
 
     public Customer() {}
 
-    public Customer(String name, String phoneNumber, String notes) {
-        this.name = name;
+    public Customer( String phoneNumber, String notes) {
         this.phoneNumber = phoneNumber;
         this.notes = notes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPhoneNumber() {
@@ -65,11 +40,11 @@ public class Customer {
         this.notes = notes;
     }
 
-    public List<Pet> getPetIds() {
+    public List<Pet> getPets() {
         return this.pets;
     }
 
-    public void setPetIds(List<Pet> pets) {
+    public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 }
