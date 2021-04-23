@@ -4,6 +4,7 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pet {
@@ -24,6 +25,9 @@ public class Pet {
     @ManyToOne(fetch=FetchType.LAZY) // many pets can belong to 1 owner
     @JoinColumn(name="customer_id") // map the joined column
     private Customer customer;
+
+    @ManyToMany(mappedBy="pets", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private List<Schedule> schedules;
 
     public Pet () {}
 

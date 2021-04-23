@@ -2,7 +2,6 @@
 
 Critter Chronologer a Software as a Service application that provides a scheduling interface for a small business that takes care of animals. This Spring Boot project will allow users to create pets, owners, and employees, and then schedule events for employees to provide services for pets.
 
-
 ## Getting Started
 
 ### Dependencies
@@ -33,6 +32,9 @@ Another SQL database may be used if desired, but do not use the H2 in-memory dat
 6. Open a browser and navigate to the url: [http://localhost:8082/test](http://localhost:8082/test)
 
 You should see the message "Critter Starter installed successfully" in your browser.
+
+## Database Design (ER Model): 
+![](er-model.png)
 
 ## Testing
 

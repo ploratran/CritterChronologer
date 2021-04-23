@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Customer extends User{
+public class Customer extends User {
 
     @Column(name="phone_number", length=10)
     private String phoneNumber;

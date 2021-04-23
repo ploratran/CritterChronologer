@@ -18,15 +18,11 @@ public class Employee extends User {
 
     // join table of Employee and DayOfWeek enum
     @ElementCollection
+    @JoinTable(name="employee_availability")
     private Set<DayOfWeek> daysAvailable;
 
     // Many Employees have Many Schedules, a M:M relationship:
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name="employee_schedule",
-            joinColumns = {@JoinColumn(name="employee_id")},
-            inverseJoinColumns = {@JoinColumn(name="schedule_id")}
-    )
+    @ManyToMany(mappedBy="employees", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Schedule> schedules;
 
     public Employee() {}

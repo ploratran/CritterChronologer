@@ -17,12 +17,21 @@ public class Schedule {
     private LocalDate date;
 
     // Many Employees have Many Schedules
-    @ManyToMany(mappedBy="schedules")
+    @ManyToMany
+    @JoinTable(
+            name="schedule_employee",
+            joinColumns = @JoinColumn(name="schedule_id"),
+            inverseJoinColumns = @JoinColumn(name="employee_id")
+    )
     private List<Employee> employees;
 
     // Many Pets have Many Schedules
     @ManyToMany
-    @JoinTable(name="schedule_pet")
+    @JoinTable(
+            name="schedule_pet",
+            joinColumns = @JoinColumn(name="schedule_id"),
+            inverseJoinColumns = @JoinColumn(name="pet_id")
+    )
     private List<Pet> pets;
 
     // Many Employee Activities have Many Schedules
