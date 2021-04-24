@@ -1,4 +1,4 @@
-## Notes on Spring Data Stores and Persistence 
+# Notes on Spring Data Stores and Persistence 
 
 **Entities** are used to negotiate between:
 * The **object** representation of data in Java.
@@ -24,7 +24,7 @@ Creates a table for the parent class and each subclass. The subclass tables have
 
 **@JSONView:** an annotation that filters which Entity data is visible to the Presentation layer
 
-### Ways to Associate Data
+## Ways to Associate Data
 * Value Types: Become single columns in containing Entity’s table.
 * Embeddables: Add their attributes as columns in the containing Entity’s table.
 * Entities: Become new tables which relate to a containing entity by a Join Column.
@@ -80,7 +80,7 @@ public class Outfit {
 }
 ```
 
-### **@JoinTable**
+## **@JoinTable**
 Many associations can be stored in a single **@JoinColumn** on one of the two entity tables, but you may also elect to store the relationship in a table designated for that purpose. **@ManyToMany** relationships must use a Join Table, and will automatically create one even if not specified.
 
 To control the name of the table and its columns, you can use the **@JoinColumn** annotation.
@@ -107,5 +107,5 @@ public class Person {
 }
 ```
 
-### **@ElementCollection**
+## **@ElementCollection**
 You can use the **@ElementCollection**annotation to denote an association between a single Entity and a list of values (value types or a collection of Embeddables) that are not themselves Entities. This annotation lets you persist Lists of Embeddables or enums. These embeddables will be stored in a separate table, along with the id of the Entity in which they are contained.

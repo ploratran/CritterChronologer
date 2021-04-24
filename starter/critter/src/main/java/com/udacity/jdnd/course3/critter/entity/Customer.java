@@ -14,7 +14,7 @@ public class Customer extends User {
     private String notes;
 
     // Use 1:M between Customer and Pets:
-    @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Pet> pets;
 
     public Customer() {}

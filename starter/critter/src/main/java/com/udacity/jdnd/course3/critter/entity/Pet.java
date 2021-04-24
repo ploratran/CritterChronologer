@@ -22,7 +22,7 @@ public class Pet {
     private String notes;
 
     // Pet and Customer has M:1 relationship:
-    @ManyToOne(fetch=FetchType.LAZY) // many pets can belong to 1 owner
+    @ManyToOne(fetch=FetchType.EAGER) // many pets can belong to 1 owner
     @JoinColumn(name="customer_id") // map the joined column
     private Customer customer;
 
@@ -76,5 +76,21 @@ public class Pet {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }
