@@ -11,6 +11,7 @@ public class Customer extends User {
     @Column(name="phone_number", length=10)
     private String phoneNumber;
 
+    @Column(nullable = true)
     private String notes;
 
     // Use 1:M between Customer and Pets:

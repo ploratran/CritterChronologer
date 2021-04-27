@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private PetType type;
@@ -19,15 +19,13 @@ public class Pet {
 
     private LocalDate birthDate;
 
+    @Column(nullable = true)
     private String notes;
 
     // Pet and Customer has M:1 relationship:
     @ManyToOne(fetch=FetchType.EAGER) // many pets can belong to 1 owner
-    @JoinColumn(name="customer_id") // map the joined column
+    @JoinColumn(name="customer_id", nullable=false) // map the joined column
     private Customer customer;
-
-    @ManyToMany(mappedBy="pets", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private List<Schedule> schedules;
 
     public Pet () {}
 
@@ -84,13 +82,5 @@ public class Pet {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public List<Schedule> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
     }
 }

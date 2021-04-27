@@ -21,10 +21,6 @@ public class Employee extends User {
     @JoinTable(name="employee_availability")
     private Set<DayOfWeek> daysAvailable;
 
-    // Many Employees have Many Schedules, a M:M relationship:
-    @ManyToMany(mappedBy="employees", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Schedule> schedules;
-
     public Employee() {}
 
     public Employee(Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable) {
@@ -46,13 +42,5 @@ public class Employee extends User {
 
     public void setDaysAvailable(Set<DayOfWeek> daysAvailable) {
         this.daysAvailable = daysAvailable;
-    }
-
-    public List<Schedule> getSchedules() {
-        return schedules;
-    }
-
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
     }
 }
