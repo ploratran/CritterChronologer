@@ -41,7 +41,7 @@ public class EmployeeController {
 
     @PutMapping("/employee/{employeeId}")
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        employeeService.setDayAvailableByEmployeeId(daysAvailable, employeeId);
     }
 
     @GetMapping("/employee/availability")
