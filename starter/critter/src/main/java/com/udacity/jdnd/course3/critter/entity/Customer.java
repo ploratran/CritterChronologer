@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Customer extends User {
 
-    @Column(name="phone_number", length=10)
+    @Column(name="phone_number")
     private String phoneNumber;
 
     @Column(nullable = true)

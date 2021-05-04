@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
@@ -23,21 +24,19 @@ public class CustomerService {
     private PetRepository petRepository;
 
     // save new customer:
-    public Customer save(Customer owner, List<Long> petIds) {
-        // make a list of pets:
+    public Customer save(Customer newCustomer, List<Long> petIds) {
+
+        // iterate through petIDs, get pet by Id
+        // add each pet to new customer
         List<Pet> pets = new ArrayList<>();
 
-        // check if petIds exist:
         if (petIds != null) {
-            // iterate through all petIds:
-            // find pet by specific petId
-            pets = petIds.stream().map((petId) -> petRepository.getOne(petId)).collect(Collectors.toList());
+            pets = petIds.stream().map(petId -> petRepository.getOne(petId)).collect(toList());
         }
-        // add pets to owner:
-        owner.setPets(pets);
+        newCustomer.setPets(pets);
 
-        // save new owner to db:
-        return customerRepository.save(owner);
+        // save new customer to Customer db:
+        return customerRepository.save(newCustomer);
     }
 
     // find all customers:
