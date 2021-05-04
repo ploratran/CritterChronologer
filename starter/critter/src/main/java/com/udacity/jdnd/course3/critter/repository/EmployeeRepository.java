@@ -13,6 +13,5 @@ import java.util.Set;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    @Query(value="select * from (Employee AS e inner join EmployeeAvailability as ea on e.id = ea.employee_id) inner join EmployeeSkills as ek on e.id = ek.employee_id")
-    List<Employee> findEmployeeWithSkillsAndDaysAvailable(Set<EmployeeSkill> skills, LocalDate date);
+
 }

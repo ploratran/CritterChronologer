@@ -16,6 +16,11 @@ public class Schedule {
 
     private LocalDate date;
 
+    // Many Employee Activities have Many Schedules
+    @ElementCollection
+    @JoinTable(name="schedule_activities")
+    private Set<EmployeeSkill> activities;
+
     // Many Employees have Many Schedules
     @ManyToMany
     @JoinTable(
@@ -33,11 +38,6 @@ public class Schedule {
             inverseJoinColumns = @JoinColumn(name="pet_id")
     )
     private List<Pet> pets;
-
-    // Many Employee Activities have Many Schedules
-    @ElementCollection
-    @JoinTable(name="schedule_activities")
-    private Set<EmployeeSkill> activities;
 
     public Schedule() {}
 

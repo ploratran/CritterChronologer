@@ -38,10 +38,5 @@ public class EmployeeService {
     }
 
     // find Employee with matching EmployeeRequestDTO of skills and date:
-    public List<Employee> findEmployeeWithSkillsDate(Set<EmployeeSkill> skills, LocalDate date) {
 
-        // find all employees with matching date and skills
-        List<Employee> employees = employeeRepository.findEmployeeWithSkillsAndDaysAvailable(skills, date);
-        return null;
-    }
 }

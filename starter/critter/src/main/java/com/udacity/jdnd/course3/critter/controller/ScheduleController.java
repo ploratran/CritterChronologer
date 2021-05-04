@@ -1,9 +1,18 @@
 package com.udacity.jdnd.course3.critter.controller;
 
 import com.udacity.jdnd.course3.critter.dto.ScheduleDTO;
+import com.udacity.jdnd.course3.critter.entity.Employee;
+import com.udacity.jdnd.course3.critter.entity.Pet;
+import com.udacity.jdnd.course3.critter.entity.Schedule;
+import com.udacity.jdnd.course3.critter.repository.EmployeeRepository;
+import com.udacity.jdnd.course3.critter.repository.PetRepository;
+import com.udacity.jdnd.course3.critter.services.ScheduleService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Handles web requests related to Schedules.
@@ -12,14 +21,45 @@ import java.util.List;
 @RequestMapping("/schedule")
 public class ScheduleController {
 
+    @Autowired
+    ScheduleService scheduleService;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Autowired
+    PetRepository petRepository;
+
     @PostMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
-        throw new UnsupportedOperationException();
+        // initialize new Schedule:
+        Schedule schedule = new Schedule();
+        // set date and activities properties for Schedule retrieved from schedule DTO
+        // petsId and employeeIds properties are set in the ScheduleService .save():
+        schedule.setDate(scheduleDTO.getDate());
+        schedule.setActivities(scheduleDTO.getActivities());
+
+        // find list of employees by employeesIds retrieved from ScheduleDTO
+        // save all employees into Schedule db:
+        List<Employee> employees = employeeRepository.findAllById(scheduleDTO.getEmployeeIds());
+        schedule.setEmployees(employees);
+
+        // find list of pet by petIds retrieved from ScheduleDTO
+        // save all pets into Pet db:
+        List<Pet> pets = petRepository.findAllById(scheduleDTO.getPetIds());
+        schedule.setPets(pets);
+
+        // return successfully saved schedule as DTO:
+        return convertToDTO(scheduleService.save(schedule));
     }
 
     @GetMapping
     public List<ScheduleDTO> getAllSchedules() {
-        throw new UnsupportedOperationException();
+        // find a list of Schedule:
+        List<Schedule> schedules = scheduleService.findAllSchedules();
+
+        // return as a list of converted schedule DTO:
+        return schedules.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/pet/{petId}")
@@ -35,5 +75,17 @@ public class ScheduleController {
     @GetMapping("/customer/{customerId}")
     public List<ScheduleDTO> getScheduleForCustomer(@PathVariable long customerId) {
         throw new UnsupportedOperationException();
+    }
+
+    // utility function to convert Schedule to ScheduleDTO:
+    public ScheduleDTO convertToDTO(Schedule schedule) {
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+        BeanUtils.copyProperties(schedule, scheduleDTO);
+
+        // set List of pet by its id:
+        scheduleDTO.setPetIds(schedule.getPets().stream().map(Pet::getId).collect(Collectors.toList()));
+        scheduleDTO.setEmployeeIds(schedule.getEmployees().stream().map(Employee::getId).collect(Collectors.toList()));
+
+        return scheduleDTO;
     }
 }
