@@ -64,12 +64,19 @@ public class ScheduleController {
 
     @GetMapping("/pet/{petId}")
     public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId) {
-        throw new UnsupportedOperationException();
+        // get a list of schedules of a pet using pet id:
+        List<Schedule> petSchedules = scheduleService.findSchedulesByPetId(petId);
+
+        // return a list of schedule dto containing of a pet:
+        return petSchedules.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/employee/{employeeId}")
     public List<ScheduleDTO> getScheduleForEmployee(@PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        // get a list of Schedules of an employee by employee id:
+        List<Schedule> employeeSchedules = scheduleService.findSchedulesByEmployeeId(employeeId);
+        // return as a list of Schedule DTO of an employee:
+        return employeeSchedules.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/customer/{customerId}")
