@@ -65,6 +65,10 @@ public class Schedule {
         this.employees = employees;
     }
 
+    public List<Pet> getPets() {
+        return pets;
+    }
+
     public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
@@ -75,9 +79,5 @@ public class Schedule {
 
     public void setActivities(Set<EmployeeSkill> activities) {
         this.activities = activities;
-    }
-
-    public List<Pet> getPets() {
-        return pets;
     }
 }
