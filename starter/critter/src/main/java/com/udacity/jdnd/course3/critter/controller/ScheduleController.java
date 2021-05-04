@@ -81,7 +81,11 @@ public class ScheduleController {
 
     @GetMapping("/customer/{customerId}")
     public List<ScheduleDTO> getScheduleForCustomer(@PathVariable long customerId) {
-        throw new UnsupportedOperationException();
+        // find a list of schedules using customer Id:
+        List<Schedule> ownerSchedules = scheduleService.findScheduleByOwnerId(customerId);
+
+        // return as a list of Schedule dto of a customer:
+        return ownerSchedules.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     // utility function to convert Schedule to ScheduleDTO:

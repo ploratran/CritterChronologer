@@ -1,8 +1,10 @@
 package com.udacity.jdnd.course3.critter.services;
 
+import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Employee;
 import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.entity.Schedule;
+import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.repository.EmployeeRepository;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import com.udacity.jdnd.course3.critter.repository.ScheduleRepository;
@@ -22,6 +24,9 @@ public class ScheduleService {
 
     @Autowired
     PetRepository petRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
 
     // save new schedule, with list of employee ids and pet ids:
     public Schedule save(Schedule schedule) {
@@ -51,5 +56,18 @@ public class ScheduleService {
 
         // return all schedules for the pet:
         return scheduleRepository.getAllByPetsContains(pet);
+    }
+
+    // find all schedules of a customer by customer id
+    // has to find list of pets using petRepository because customer db does not have joined table with schedule db:
+    public List<Schedule> findScheduleByOwnerId(Long ownerId) {
+
+        // find owner by owner Id:
+        Customer owner = customerRepository.getOne(ownerId);
+
+        // return list of pets of a customer
+        // find owner by ownerId, then retrieve a list of pet of that owner
+        // then, find in schedule table in a joined table with pet table
+        return scheduleRepository.getAllByPetsIn(owner.getPets());
     }
 }

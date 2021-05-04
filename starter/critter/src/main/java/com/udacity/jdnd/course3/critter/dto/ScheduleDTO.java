@@ -12,10 +12,10 @@ import java.util.Set;
  */
 public class ScheduleDTO {
     private long id;
-    private List<Long> employeeIds;
-    private List<Long> petIds;
     private LocalDate date;
     private Set<EmployeeSkill> activities;
+    private List<Long> employeeIds;
+    private List<Long> petIds;
 
     public List<Long> getEmployeeIds() {
         return employeeIds;

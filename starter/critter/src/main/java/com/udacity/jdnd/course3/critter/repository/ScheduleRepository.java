@@ -16,4 +16,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     // find all schedules in Schedule db that has matching pet:
     List<Schedule> getAllByPetsContains(Pet pet);
+
+    // find a list of pets in Schedule db that has pets:
+    List<Schedule> getAllByPetsIn(List<Pet> pets);
 }
