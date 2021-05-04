@@ -76,11 +76,11 @@ public class Pet {
         this.notes = notes;
     }
 
-    public Customer getCustomer() {
+    public Customer getOwner() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setOwner(Customer customer) {
         this.customer = customer;
     }
 }
