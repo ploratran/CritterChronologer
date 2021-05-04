@@ -15,7 +15,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/user")
 public class CustomerController {
 
     @Autowired
@@ -49,7 +49,7 @@ public class CustomerController {
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId){
-        throw new UnsupportedOperationException();
+        return convertToDTO(customerService.findOwnerByPetId(petId));
     }
 
     // utility function to convert Customer to CustomerDTO:

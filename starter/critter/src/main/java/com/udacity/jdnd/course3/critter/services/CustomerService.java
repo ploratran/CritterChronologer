@@ -45,4 +45,11 @@ public class CustomerService {
     }
 
     // find owner by pet ID:
+    public Customer findOwnerByPetId(Long petId) {
+        Pet pet = petRepository.getOne(petId);
+
+        Customer owner = pet.getOwner();
+
+        return owner;
+    }
 }
