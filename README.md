@@ -34,18 +34,18 @@ Another SQL database may be used if desired, but do not use the H2 in-memory dat
 You should see the message "Critter Starter installed successfully" in your browser.
 
 ## Database Design (ER Model): 
-![](er-model.png)
+![](model.png)
 
 ## Functionalities: 
 Your project should now support the following workflow:
 
-[x] Create a new customer.
-[x] Create a pet for that customer.
-[x] Create an employee.
-[x] Update the employee’s schedule.
-[x] Find out which employees with the right skills are available on a given date.
-[x] Schedule one or more employees to do a set of activities with one or more pets.
-[x] Look up currently scheduled events for an employee, a pet, or a customer.
+- [x] Create a new customer.
+- [x] Create a pet for that customer.
+- [x] Create an employee.
+- [x] Update the employee’s schedule.
+- [x] Find out which employees with the right skills are available on a given date.
+- [x] Schedule one or more employees to do a set of activities with one or more pets.
+- [x] Look up currently scheduled events for an employee, a pet, or a customer.
 
 ## Testing
 
