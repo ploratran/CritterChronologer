@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.udacity.jdnd.course3.critter.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.dto.EmployeeRequestDTO;
 import com.udacity.jdnd.course3.critter.entity.Employee;
+import com.udacity.jdnd.course3.critter.entity.EmployeeSkill;
 import com.udacity.jdnd.course3.critter.services.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -46,7 +48,10 @@ public class EmployeeController {
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+        // find all employees with available skills and date inquired:
+        List<Employee> employees = employeeService.findEmployeesWithSkillsAndDate(employeeDTO.getSkills(), employeeDTO.getDate());
+
+        return employees.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     // utility function to convert Employee to Employee DTO:

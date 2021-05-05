@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -38,5 +40,11 @@ public class EmployeeService {
     }
 
     // find Employee with matching EmployeeRequestDTO of skills and date:
-
+    public List<Employee> findEmployeesWithSkillsAndDate(Set<EmployeeSkill> skills, LocalDate date) {
+        // find a list of employee id with matching skills and date:
+        List<Employee> employees = employeeRepository
+                                    .getAllBySkillsIn(skills).stream()
+                                    .collect(Collectors.toList());
+        return employees;
+    }
 }
