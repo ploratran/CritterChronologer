@@ -44,6 +44,7 @@ public class EmployeeService {
         // find a list of employee id with matching skills and date:
         List<Employee> employees = employeeRepository
                                     .getAllBySkillsIn(skills).stream()
+                                    .filter(employee -> employee.getSkills().containsAll(skills))
                                     .collect(Collectors.toList());
         return employees;
     }
