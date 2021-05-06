@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,9 +40,13 @@ public class EmployeeService {
 
     // find Employee with matching EmployeeRequestDTO of skills and date:
     public List<Employee> findEmployeesWithSkillsAndDate(Set<EmployeeSkill> skills, LocalDate date) {
-        // find a list of employee id with matching skills and date:
+        // find a list of employee with matching date of week and skill:
+        // first, find in employee_availability table all employees with matching available day of week
+        // get day of week from Controller layer scheduleRequestDTO request data
+        // then, use filter() to filter out employee with matching skills
+        // finally, return as a list of employee using Collectors class .toList():
         List<Employee> employees = employeeRepository
-                                    .getAllBySkillsIn(skills).stream()
+                                    .findAllByDaysAvailableContaining(date.getDayOfWeek()).stream()
                                     .filter(employee -> employee.getSkills().containsAll(skills))
                                     .collect(Collectors.toList());
         return employees;
