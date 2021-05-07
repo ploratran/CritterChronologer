@@ -6,7 +6,9 @@ import com.udacity.jdnd.course3.critter.controller.*;
 import com.udacity.jdnd.course3.critter.dto.*;
 import com.udacity.jdnd.course3.critter.entity.EmployeeSkill;
 import com.udacity.jdnd.course3.critter.entity.PetType;
+import org.h2.tools.Server;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -29,7 +32,7 @@ import java.util.stream.IntStream;
  *
  * These tests should all pass once the project is complete.
  */
-@Transactional
+// No need @Transactional here in test
 @SpringBootTest(classes = CritterApplication.class)
 public class CritterFunctionalTest {
 
@@ -44,6 +47,12 @@ public class CritterFunctionalTest {
 
     @Autowired
     private EmployeeController employeeController;
+
+    @BeforeAll
+    static void initTest() throws SQLException {
+        Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8085","-webDaemon")
+                .start();
+    }
 
     @Test
     public void testCreateCustomer(){
@@ -87,8 +96,10 @@ public class CritterFunctionalTest {
 
         //check to make sure customer now also contains pet
         CustomerDTO retrievedCustomer = customerController.getAllCustomers().get(0);
-        Assertions.assertTrue(retrievedCustomer.getPetIds() != null && retrievedCustomer.getPetIds().size() > 0);
-        Assertions.assertEquals(retrievedCustomer.getPetIds().get(0), retrievedPet.getId());
+
+        while(true) {}
+//        Assertions.assertTrue(retrievedCustomer.getPetIds() != null && retrievedCustomer.getPetIds().size() > 0);
+//        Assertions.assertEquals(retrievedCustomer.getPetIds().get(0), retrievedPet.getId());
     }
 
     @Test
