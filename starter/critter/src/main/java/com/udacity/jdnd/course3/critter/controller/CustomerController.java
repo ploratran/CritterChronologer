@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/user")
+@Transactional
 public class CustomerController {
 
     @Autowired

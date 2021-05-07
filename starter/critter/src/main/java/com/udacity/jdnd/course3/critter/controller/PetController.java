@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/pet")
+@Transactional
 public class PetController {
 
     @Autowired
